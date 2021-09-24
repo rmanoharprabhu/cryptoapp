@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Card, Row, Col, Avatar, Spin, Select, Typography } from "antd";
 import { useGetCryptosNewsQuery } from "../services/cryptoNewsApi";
 import { useGetCryptosQuery } from "../services/cryptoApi";
@@ -54,12 +54,13 @@ const News = ({ simplified }) => {
       {cryptoNewsList?.value.map((news, index) => (
         <Col xs={24} small={12} lg={6} className="crypto-card" key={index}>
           <Card className="news-card" hoverable>
-            <a href={news.url} target="_blank">
+            <a href={news.url} target="_blank" rel="noreferrer">
               <div className="news-image-container">
                 <Title level={4} className="news-title">
                   {news.name}
                 </Title>
                 <img
+                  alt=""
                   style={{ maxWidth: "200px", maxheight: "100px" }}
                   src={news?.image?.thumbnail?.contentUrl || demoImage}
                 />

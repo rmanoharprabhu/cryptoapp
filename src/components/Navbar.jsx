@@ -1,13 +1,11 @@
 import React from "react";
-import { Avatar, Button, Menu, Typography } from "antd";
+import { Avatar, Menu, Typography } from "antd";
 import { Link } from "react-router-dom";
-import icon from "../images/cryptoImg.png";
 import {
   HomeOutlined,
   MoneyCollectOutlined,
   BulbOutlined,
   FundOutlined,
-  MenuOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 
