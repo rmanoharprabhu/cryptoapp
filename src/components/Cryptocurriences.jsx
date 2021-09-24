@@ -22,7 +22,7 @@ const Cryptocurriences = ({ simplified }) => {
 
   if (isFetching) return <Spin />;
 
-  console.log(cryptos);
+  //console.log(cryptos);
 
   return (
     <>
