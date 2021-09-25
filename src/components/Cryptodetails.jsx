@@ -117,7 +117,11 @@ const Cryptodetails = () => {
           </Option>
         ))}
       </Select>
-      <LineChart />
+      <LineChart
+        history={coinHistory}
+        price={cryptoDetails.price}
+        name={cryptoDetails.name}
+      />
       <Col className="stats-container">
         <Col className="coin-value-statistics">
           <Col className="coin-value-statistics-heading">
