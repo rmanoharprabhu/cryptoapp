@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import HTMLReactParser from "html-react-parser";
 import { useParams } from "react-router-dom";
 import millify from "millify";
-import { Col, Row, Typography, Select, Spin, Space } from "antd";
+import { Col, Row, Typography, Select, Spin } from "antd";
 import {
-  useGetCryptosQuery,
   useGetCryptoDetailsQuery,
+  useGetCryptoHistoryQuery,
 } from "../services/cryptoApi";
 
 import {
@@ -19,6 +19,7 @@ import {
   NumberOutlined,
   ThunderboltOutlined,
 } from "@ant-design/icons";
+import LineChart from "./LineChart";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -27,9 +28,12 @@ const Cryptodetails = () => {
   const { coinid } = useParams();
   const [timePeriod, setTimePeriod] = useState("7d");
   const { data, isFetching } = useGetCryptoDetailsQuery(coinid);
+  const { data: coinHistory } = useGetCryptoHistoryQuery(coinid);
   const cryptoDetails = data?.data?.coin;
 
   if (isFetching) return <Spin />;
+
+  console.log(coinHistory);
 
   const time = ["3h", "24h", "7d", "30d", "3m", "1y", "3y", "5y"];
 
@@ -89,7 +93,6 @@ const Cryptodetails = () => {
     },
   ];
 
-  console.log(data);
   return (
     <Col className="coin-detail-container">
       <Col className="coin-heading-container">
@@ -114,12 +117,13 @@ const Cryptodetails = () => {
           </Option>
         ))}
       </Select>
+      <LineChart />
       <Col className="stats-container">
         <Col className="coin-value-statistics">
           <Col className="coin-value-statistics-heading">
-            <Title level={3} className="coin-details-heading">
+            <div className="coin-details-heading">
               {cryptoDetails.name} Value Statistics
-            </Title>
+            </div>
             <p>Statistics for the {cryptoDetails.name}</p>
           </Col>
           {stats.map(({ icon, title, value, index }) => (
@@ -158,7 +162,7 @@ const Cryptodetails = () => {
           </Title>
         </Row>
         <Col className="coin-links">
-          <Title level={3} className="coin-details-heading">
+          <Title level={5} className="coin-details-heading">
             {cryptoDetails.name} Links
           </Title>
           {cryptoDetails.links.map((link, index) => (
