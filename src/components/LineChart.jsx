@@ -11,13 +11,17 @@ const LineChart = ({ history, price, name }) => {
 
   for (let i = 0; i < history?.data?.history.length; i++) {
     coinPrice.push(history?.data?.history[i]?.price);
-  }
 
-  for (let i = 0; i < history?.data?.history.length; i++) {
     coinTimeStamp.push(
       new Date(history?.data?.history[i].timestamp).toLocaleDateString()
     );
   }
+
+  //   for (let i = 0; i < history?.data?.history.length; i++) {
+  //     coinTimeStamp.push(
+  //       new Date(history?.data?.history[i].timestamp).toLocaleDateString()
+  //     );
+  //   }
 
   const data = {
     labels: coinTimeStamp,
