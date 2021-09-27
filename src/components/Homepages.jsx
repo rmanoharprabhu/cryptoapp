@@ -10,9 +10,14 @@ const { Title } = Typography;
 const Homepages = () => {
   const { data, isFetching } = useGetCryptosQuery(10);
   const globalStats = data?.data?.stats;
-  if (isFetching) return <Spin />;
+  if (isFetching)
+    return (
+      <div className="loader">
+        <Spin />
+      </div>
+    );
 
-  //console.log(data);
+  //console.log(process.env.REACT_APP_CRYPTO_BASE_URL);
 
   return (
     <>

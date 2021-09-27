@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { Card, Row, Col, Input, Spin } from "antd";
 import millify from "millify";
 import { useGetCryptosQuery } from "../services/cryptoApi";
+import { COIN_MIN_COUNT, COIN_MAX_COUNT } from "./constant";
 
 const Cryptocurriences = ({ simplified }) => {
-  const count = simplified ? 10 : 100;
+  const count = simplified ? COIN_MIN_COUNT : COIN_MAX_COUNT;
   const { data: cryptoList, isFetching } = useGetCryptosQuery(count);
   const [cryptos, setCryptos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,7 +21,12 @@ const Cryptocurriences = ({ simplified }) => {
     setCryptos(filteredList);
   }, [searchTerm, cryptoList]);
 
-  if (isFetching) return <Spin />;
+  if (isFetching)
+    return (
+      <div className="loader">
+        <Spin />
+      </div>
+    );
 
   //console.log(cryptos);
 

@@ -2,31 +2,40 @@ import React, { useState } from "react";
 import { Card, Row, Col, Avatar, Spin, Select, Typography } from "antd";
 import { useGetCryptosNewsQuery } from "../services/cryptoNewsApi";
 import { useGetCryptosQuery } from "../services/cryptoApi";
-
-//import { Link } from "react-router-dom";
 import moment from "moment";
+
+import {
+  DEMO_IMG_URL,
+  DEFAULT_NEWS_CATEGORY,
+  COIN_MAX_COUNT,
+  NEWS_MIN_COUNT,
+  NEWS_MAX_COUNT,
+} from "./constant";
 
 const { Text, Title } = Typography;
 const { Option } = Select;
 
 const News = ({ simplified }) => {
-  const defaultNewsCategory = "Cryptocurrency";
-  //const [cryptoNews, setCryptoNews] = useState([]);
+  const defaultNewsCategory = DEFAULT_NEWS_CATEGORY;
   const [newsCategory, setNewsCategory] = useState(defaultNewsCategory);
   const { data: cryptoNewsList } = useGetCryptosNewsQuery({
     category: newsCategory,
-    count: simplified ? 6 : 12,
+    count: simplified ? NEWS_MIN_COUNT : NEWS_MAX_COUNT,
   });
 
-  const { data: cryptoCoinList } = useGetCryptosQuery(100);
+  const { data: cryptoCoinList } = useGetCryptosQuery(COIN_MAX_COUNT);
 
-  console.log(cryptoCoinList);
+  //console.log(cryptoCoinList);
 
   //const [searchTerm, setSearchTerm] = useState("");
-  const demoImage =
-    "https://www.bing.com/th?id=OVFT.mpzuVZnv8dwIMRfQGPbOPC&pid=News";
+  const demoImage = DEMO_IMG_URL;
 
-  if (!cryptoNewsList?.value) return <Spin />;
+  if (!cryptoNewsList?.value)
+    return (
+      <div className="loader">
+        <Spin />
+      </div>
+    );
 
   return (
     <Row gutter={[24, 24]}>

@@ -28,18 +28,23 @@ const Cryptodetails = () => {
   const { coinid } = useParams();
   const [timePeriod, setTimePeriod] = useState("7d");
   const { data, isFetching } = useGetCryptoDetailsQuery(coinid);
-  // const { data: coinHistory } = useGetCryptoHistoryQuery({
-  //   coinid: coinid,
-  //   period: timePeriod,
-  // });
-  const { data: coinHistory } = useGetCryptoHistoryQuery(coinid);
+  const { data: coinHistory } = useGetCryptoHistoryQuery({
+    coinid: coinid,
+    period: timePeriod,
+  });
+  //const { data: coinHistory } = useGetCryptoHistoryQuery(coinid);
   const cryptoDetails = data?.data?.coin;
 
-  if (isFetching) return <Spin />;
+  if (isFetching)
+    return (
+      <div className="loader">
+        <Spin />
+      </div>
+    );
 
   //console.log(coinHistory);
 
-  const time = ["3h", "24h", "7d", "30d", "3m", "1y", "3y", "5y"];
+  const time = ["24h", "7d", "30d", "1y", "5y"];
 
   const stats = [
     {
